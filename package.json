@@ -1,7 +1,7 @@
 {
   "name": "geopedia",
   "version": "1.0.0",
-  "main": "index.ts",
+  "main": "expo-router/entry",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
@@ -9,8 +9,11 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@apollo/client": "^4.0.5",
     "expo": "~54.0.9",
+    "expo-router": "~6.0.7",
     "expo-status-bar": "~3.0.8",
+    "graphql": "^16.11.0",
     "react": "19.1.0",
     "react-native": "0.81.4"
   },
