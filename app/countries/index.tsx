@@ -1,4 +1,12 @@
-import { FlatList, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import {
+  FlatList,
+  StatusBar,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { useQuery } from "@apollo/client/react";
 import { gql } from "@apollo/client";
 import { router } from "expo-router";
@@ -8,11 +16,11 @@ type TCountry = {
   code: string;
   name: string;
   emoji: string;
-}
+};
 
 type TData = {
-  countries: TCountry[]
-}
+  countries: TCountry[];
+};
 
 const Countries = () => {
   const GET_COUNTRIES = gql`
@@ -31,9 +39,11 @@ const Countries = () => {
   if (loading) return <Text>Cargando…</Text>;
   if (error) return <Text>Error: {error.message}</Text>;
 
-  const countries = data?.countries ?? []
+  const countries = data?.countries ?? [];
 
-  const filteredCountries = countries.filter(country => country.name.toLowerCase().includes(search.toLowerCase()))
+  const filteredCountries = countries.filter((country) => {
+    return country.name.toLowerCase().includes(search.toLowerCase());
+  });
 
   return (
     <View>
@@ -43,15 +53,20 @@ const Countries = () => {
         onChangeText={setSearch}
         style={styles.input}
       />
-      <FlatList data={filteredCountries} renderItem={
-        ({ item }) => <TouchableOpacity onPress={() => router.push(`/countries/${item.code}`)}>
-          <Text style={styles.item}>{item.name}</Text>
-        </TouchableOpacity>
-      }
-        keyExtractor={item => item.code} />
+      <FlatList
+        data={filteredCountries}
+        renderItem={({ item }) => (
+          <TouchableOpacity
+            onPress={() => router.push(`/countries/${item.code}`)}
+          >
+            <Text style={styles.item}>{item.name}</Text>
+          </TouchableOpacity>
+        )}
+        keyExtractor={(item) => item.code}
+      />
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -62,7 +77,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   item: {
-    backgroundColor: '#f9c2ff',
+    backgroundColor: "#f9c2ff",
     padding: 20,
     borderRadius: 10,
     marginVertical: 8,

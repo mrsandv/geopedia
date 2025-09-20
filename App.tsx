@@ -1,5 +1,5 @@
-import { StatusBar } from 'expo-status-bar';
-import RootLayout from './app/_layout';
+import { StatusBar } from "expo-status-bar";
+import RootLayout from "./app/_layout";
 
 const App = () => {
   return (
@@ -8,6 +8,6 @@ const App = () => {
       <RootLayout />
     </>
   );
-}
+};
 
 export default App;

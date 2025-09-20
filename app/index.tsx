@@ -1,5 +1,5 @@
-import { useRouter } from 'expo-router';
-import { View, Button } from 'react-native';
+import { useRouter } from "expo-router";
+import { View, Button } from "react-native";
 
 const HomeScreen = () => {
   const router = useRouter();
@@ -8,11 +8,11 @@ const HomeScreen = () => {
     <View>
       <Button
         title="Explorar Continentes"
-        onPress={() => router.push('/continents/')}
+        onPress={() => router.push("/continents/")}
       />
       <Button
         title="Explorar Paises"
-        onPress={() => router.push('/countries/')}
+        onPress={() => router.push("/countries/")}
       />
     </View>
   );
