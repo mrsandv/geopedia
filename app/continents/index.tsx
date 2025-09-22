@@ -1,71 +1,43 @@
-import {
-  FlatList,
-  StatusBar,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import React from "react";
+import { FlatList, StyleSheet, StatusBar } from "react-native";
 import { useQuery } from "@apollo/client/react";
-import { gql } from "@apollo/client";
-import { router } from "expo-router";
-
-type TContinent = {
-  code: string;
-  name: string;
-};
+import { Surface } from "react-native-paper";
+import { GET_CONTINENTS } from "utils/querys";
+import ListItem from "components/ListElement";
+import { TContinent } from "types";
+import Loader from "components/Loader";
+import Message from "components/Message";
 
 type TData = {
   continents: TContinent[];
 };
 
 const Continents = () => {
-  const GET_CONTINENTS = gql`
-    query Continents {
-      continents {
-        code
-        name
-      }
-    }
-  `;
+  let { loading, data, error } = useQuery<TData>(GET_CONTINENTS);
 
-  const { loading, data, error } = useQuery<TData>(GET_CONTINENTS);
-  console.log({ loading, data, error });
+  if (loading) return <Loader />;
 
-  if (loading) {
+  if (error)
     return (
-      <View style={styles.container}>
-        <Text>Cargando…</Text>
-      </View>
+      <Message
+        title="Error"
+        description={error?.message ?? "Error desconocido"}
+      />
     );
-  }
-
-  if (error) {
-    return (
-      <View style={styles.container}>
-        <Text>Error: {error.message}</Text>
-      </View>
-    );
-  }
 
   const continents = data?.continents ?? [];
 
   return (
-    <View>
+    <Surface style={styles.container}>
       <FlatList
         data={continents}
-        renderItem={({ item }) => (
-          <TouchableOpacity
-            onPress={() => {
-              router.push(`/continents/${item.code}`);
-            }}
-          >
-            <Text style={styles.item}>{item.name}</Text>
-          </TouchableOpacity>
-        )}
         keyExtractor={(item) => item.code}
+        contentContainerStyle={{ paddingBottom: 16 }}
+        renderItem={({ item }) => (
+          <ListItem type="continent" item={{ ...item, emoji: "🌎" }} />
+        )}
       />
-    </View>
+    </Surface>
   );
 };
 
@@ -73,16 +45,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: StatusBar.currentHeight || 0,
-  },
-  item: {
-    backgroundColor: "#f9c2ff",
-    padding: 20,
-    borderRadius: 10,
-    marginVertical: 8,
-    marginHorizontal: 16,
-  },
-  title: {
-    fontSize: 32,
+    paddingHorizontal: 16,
   },
 });
 

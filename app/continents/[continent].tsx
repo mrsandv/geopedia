@@ -1,13 +1,14 @@
-import { FlatList, Text, TouchableOpacity, View } from "react-native";
+import { FlatList, StyleSheet } from "react-native";
 import { useQuery } from "@apollo/client/react";
-import { gql } from "@apollo/client";
-import { router, useLocalSearchParams } from "expo-router";
-
-type TCountry = {
-  code: string;
-  name: string;
-  emoji: string;
-};
+import { useLocalSearchParams } from "expo-router";
+import { Searchbar, Surface } from "react-native-paper";
+import { useState } from "react";
+import Loader from "components/Loader";
+import Message from "components/Message";
+import { filterCountries } from "utils/filters";
+import ListItem from "components/ListElement";
+import { GET_COUNTRIES_BY_CODE } from "utils/querys";
+import { TCountry } from "types";
 
 type TData = {
   countries: TCountry[];
@@ -15,41 +16,53 @@ type TData = {
 
 const Countries = () => {
   const { continent } = useLocalSearchParams<{ continent: string }>();
-  console.log(continent);
-  const GET_COUNTRIES = gql`
-    query Countries($code: String) {
-      countries(filter: { continent: { eq: $code } }) {
-        code
-        name
-        emoji
-      }
-    }
-  `;
+  const [search, setSearch] = useState("");
 
-  const { loading, error, data } = useQuery<TData>(GET_COUNTRIES, {
+  let { loading, error, data } = useQuery<TData>(GET_COUNTRIES_BY_CODE, {
     variables: { code: continent },
   });
 
-  if (loading) return <Text>Cargando…</Text>;
-  if (error) return <Text>Error: {error.message}</Text>;
+  if (loading) return <Loader />;
+  if (error)
+    return (
+      <Message
+        title="Error"
+        description={error?.message ?? "Error desconocido"}
+      />
+    );
 
   const countries = data?.countries ?? [];
 
+  const filteredCountries = filterCountries(countries, search);
+
   return (
-    <View>
-      <FlatList
-        data={countries}
-        renderItem={({ item }) => (
-          <TouchableOpacity
-            onPress={() => router.push(`/countries/${item.code}`)}
-          >
-            <Text>{item.name}</Text>
-          </TouchableOpacity>
-        )}
-        keyExtractor={(item) => item.code}
+    <Surface style={styles.container}>
+      <Searchbar
+        placeholder="Buscar país..."
+        value={search}
+        onChangeText={setSearch}
+        style={styles.searchbar}
       />
-    </View>
+      {filteredCountries.length === 0 ? (
+        <Message title="Ups!" description="No se encontraron registros" />
+      ) : (
+        <FlatList
+          data={filteredCountries}
+          renderItem={({ item }) => <ListItem item={item} />}
+          keyExtractor={(item) => item.code}
+        />
+      )}
+    </Surface>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  searchbar: {
+    margin: 10,
+  },
+});
 
 export default Countries;
