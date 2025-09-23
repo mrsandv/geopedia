@@ -1,7 +1,7 @@
 import { StyleSheet, View } from "react-native";
 import { Card, Text, useTheme } from "react-native-paper";
 import { useRouter } from "expo-router";
-import { ReactNode } from "react";
+import { memo, ReactNode } from "react";
 import { TCountry } from "types";
 
 type TListItem = {
@@ -48,4 +48,4 @@ const styles = StyleSheet.create({
   content: { flexDirection: "row", justifyContent: "space-between" },
 });
 
-export default ListItem;
+export default memo(ListItem);

@@ -10,19 +10,17 @@ export type TCountry = {
 };
 
 export type TDetailedCountry = {
-  country: {
-    code: string;
+  code: string;
+  name: string;
+  emoji: string;
+  capital: string;
+  continent: {
     name: string;
-    emoji: string;
-    capital: string;
-    continent: {
-      name: string;
-      code: string;
-    };
-    currencies: string[];
-    languages: {
-      name: string;
-    }[];
-    native: string;
+    code: string;
   };
+  currencies: string[];
+  languages: {
+    name: string;
+  }[];
+  native: string;
 };

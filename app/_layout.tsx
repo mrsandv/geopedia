@@ -9,6 +9,7 @@ import {
 } from "react-native-paper";
 import { useState } from "react";
 import { client } from "utils/apollo";
+import { StatusBar } from "expo-status-bar";
 
 type TTheme = "light" | "dark" | "system";
 
@@ -35,6 +36,7 @@ const RootLayout = () => {
           />
           <Appbar.Content title="Geopedia" />
         </Appbar.Header>
+        <StatusBar style="auto" />
         <Stack
           screenOptions={{ headerShown: false, animation: "fade_from_bottom" }}
         />

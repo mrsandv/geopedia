@@ -1,4 +1,4 @@
-import { FlatList, StatusBar, StyleSheet } from "react-native";
+import { FlatList, StyleSheet } from "react-native";
 import { useQuery } from "@apollo/client/react";
 import { useState } from "react";
 import { Searchbar, Surface } from "react-native-paper";
@@ -7,7 +7,7 @@ import { TCountry } from "types";
 import { GET_COUNTRIES } from "utils/querys";
 import { filterCountries } from "utils/filters";
 import Loader from "components/Loader";
-import ListItem from "components/ListElement";
+import ListItem from "components/ListItem";
 
 type TData = {
   countries: TCountry[];
@@ -55,7 +55,6 @@ const Countries = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: StatusBar.currentHeight || 0,
   },
   searchbar: {
     margin: 10,

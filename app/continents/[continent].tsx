@@ -6,7 +6,7 @@ import { useState } from "react";
 import Loader from "components/Loader";
 import Message from "components/Message";
 import { filterCountries } from "utils/filters";
-import ListItem from "components/ListElement";
+import ListItem from "components/ListItem";
 import { GET_COUNTRIES_BY_CODE } from "utils/querys";
 import { TCountry } from "types";
 
@@ -23,6 +23,7 @@ const Countries = () => {
   });
 
   if (loading) return <Loader />;
+
   if (error)
     return (
       <Message

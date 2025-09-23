@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, Image, View } from "react-native";
 import { useRouter } from "expo-router";
-import { Button, Divider, Surface, Text } from "react-native-paper";
+import { Button, Surface, Text } from "react-native-paper";
 
 const HomeScreen = () => {
   const router = useRouter();
@@ -17,7 +17,7 @@ const HomeScreen = () => {
       </View>
       <View style={styles.buttons}>
         <Button mode="contained" onPress={() => router.push("/continents/")}>
-          Contientes
+          Continentes
         </Button>
         <Button mode="contained" onPress={() => router.push("/countries/")}>
           Países

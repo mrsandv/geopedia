@@ -1,21 +1,21 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { TCountry } from "types";
 
 const STORAGE_KEY = "favourite_countries";
 
-export type TFavorite = {
-  code: string;
-  name: string;
-  emoji: string;
-};
-
-export type TFavourites = TFavorite[];
-
-export const getFavorites = async (): Promise<TFavourites> => {
+export const getFavorites = async (): Promise<TCountry[]> => {
   const json = await AsyncStorage.getItem(STORAGE_KEY);
   return json ? JSON.parse(json) : [];
 };
 
-export const addFavorite = async (country: TFavorite): Promise<string> => {
+export const checkIsAlreadyFavorite = async (
+  code: string,
+): Promise<boolean> => {
+  const favorites = await getFavorites();
+  return favorites.some((c) => c.code === code);
+};
+
+export const addFavorite = async (country: TCountry): Promise<string> => {
   const favorites = await getFavorites();
   const exists = favorites.some((c) => c.code === country.code);
   if (!exists) {
