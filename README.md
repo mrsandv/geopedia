@@ -2,6 +2,8 @@
 
 This project is a React Native app created to learn about the countries in the world. It allows you to search and view detailed information about countries like the name, code, languages, currency, and the emoji flag, and it also allows you to save your favorite countries.
 
+![Geopedia home](https://x27ogsxot4y4om7r.public.blob.vercel-storage.com/home.jpeg)
+
 ## Stack and design
 
 - React native
@@ -53,4 +55,16 @@ npm run start
 
 4. Turn on your device or emulator and scan the QR code
 
+## Some captures
+
 > ## Happy coding!
+
+![Geopedia home dark](https://x27ogsxot4y4om7r.public.blob.vercel-storage.com/home-dark.jpeg)
+
+![Country list](https://x27ogsxot4y4om7r.public.blob.vercel-storage.com/country-list.jpeg)
+
+![Filter](https://x27ogsxot4y4om7r.public.blob.vercel-storage.com/filter.jpeg)
+
+![Detail and favorites](https://x27ogsxot4y4om7r.public.blob.vercel-storage.com/detail-favorites.jpeg)
+
+![Actions](https://x27ogsxot4y4om7r.public.blob.vercel-storage.com/actions.jpeg)
